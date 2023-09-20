@@ -19,17 +19,25 @@ class UserModel extends Model
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
+    protected $updatedField = 'updated_at';
 
     // Validation
     protected $validationRules      = [
         'first_name' =>'required|min_length[3]|max_length[255]',
         'last_name' =>'required|min_length[3]|max_length[255]',
-        'username' =>'required|min_length[3]|max_length[255]',
-        'email' =>'required|min_length[3]|max_length[255]|valid_email',
+        'username' =>'required|min_length[3]|max_length[255]|is_unique[user.username]',
+        'email' =>'required|min_length[3]|max_length[255]|valid_email|is_unique[user.email]',
         'password' => 'required|min_length[4]|max_length[255]',
         'passconf' => 'required|min_length[4]|max_length[255]|matches[password]',
     ];
-    // protected $validationMessages   = [];
+    protected $validationMessages   = [
+        'email' => [
+            'is_unique' => 'This email address is already taken.'
+        ],
+        'username' => [
+            'is_unique' => 'This username is already taken.'
+        ],
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

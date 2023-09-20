@@ -66,10 +66,14 @@ class UserTable extends Migration
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
+            'updated_at' => [
+                'type' => 'TIMESTAMP',
+                'null' => true,
+            ],
         ]);
 
-        $this->forge->addForeignKey('branch_id', 'branch', 'id', '', 'SET_NULL');
-        $this->forge->addForeignKey('store_id', 'store', 'id', '', 'SET_NULL');
+        $forge->addForeignKey('branch_id', 'branch', 'id', '', 'SET_NULL');
+        $forge->addForeignKey('store_id', 'store', 'id', '', 'SET_NULL');
         $forge->createTable('user');
     }
 

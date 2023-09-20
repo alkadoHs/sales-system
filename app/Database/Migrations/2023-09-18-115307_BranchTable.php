@@ -26,6 +26,10 @@ class BranchTable extends Migration
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
+            'updated_at' => [
+                'type' => 'TIMESTAMP',
+                'null' => true,
+            ],
         ]);
 
         $forge->addForeignKey('mnj_id', 'user', 'id', '', 'SET_NULL', 'branch_mng_id');

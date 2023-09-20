@@ -6,6 +6,10 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        if(session()->get('userId')) {
+            return view('dashboard');
+        } else {
+            return view('login');
+        }
     }
 }

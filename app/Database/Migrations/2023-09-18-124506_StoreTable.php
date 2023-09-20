@@ -26,6 +26,10 @@ class StoreTable extends Migration
                 'type' => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),
             ],
+            'updated_at' => [
+                'type' => 'TIMESTAMP',
+                'null' => true,
+            ],
         ]);
 
         $forge->addForeignKey('mnj_id', 'user', 'id', '', 'SET_NULL', 'store_mnj_id');

@@ -42,7 +42,6 @@ class User extends BaseController
         ];
          $errors = $this->validator->getErrors();
          $insertedID = $userModel->create_user($user);
-       
     }
 
 
@@ -91,9 +90,12 @@ class User extends BaseController
                 'last_name' =>$user->last_name,
                 'username' => $user->username,
                 'is_superuser' => $user->is_superuser,
+                'branch_id' => $user->branch_id,
+                'store_id' => $user->store_id,
 
             ];
             $session->set($data);
+            $userModel->update($user->id, ['is_active' => 1]);
             return redirect()->route('dashboard');
         } else {
             $session->setFlashdata('errorLogin', 'Invalid username or password.');
@@ -103,8 +105,8 @@ class User extends BaseController
 
 
     public function logout() {
-        $session = session();
-        $session->remove('userId');
+        model(UserModel::class)->update(session()->get('userId'), ['is_active' => 0]);
+        session()->remove('userId');
         return redirect()->route('logout');
     }
 }
